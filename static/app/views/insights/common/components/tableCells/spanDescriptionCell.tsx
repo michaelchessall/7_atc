@@ -119,7 +119,7 @@ export const WiderHovercard = styled(
 )`
   &.wider {
     width: auto;
-    max-width: 550px;
+    max-width: 600px;
   }
 `;
 

@@ -1,6 +1,7 @@
 import {Fragment} from 'react';
 import styled from '@emotion/styled';
 
+import ClippedBox from 'sentry/components/clippedBox';
 import {CodeSnippet} from 'sentry/components/codeSnippet';
 import LoadingIndicator from 'sentry/components/loadingIndicator';
 import {space} from 'sentry/styles/space';
@@ -64,18 +65,28 @@ export function FullSpanDescription({
         stringifiedQuery = description || fullSpan?.sentry_tags?.description || 'N/A';
       }
 
-      return <CodeSnippet language="json">{stringifiedQuery}</CodeSnippet>;
+      return (
+        <ClippedBox clipHeight={200} defaultClipped btnText="View Full Query">
+          <CodeSnippet language="json">{stringifiedQuery}</CodeSnippet>
+        </ClippedBox>
+      );
     }
 
     return (
-      <CodeSnippet language="sql">
-        {formatter.toString(description, {maxLineLength: LINE_LENGTH})}
-      </CodeSnippet>
+      <ClippedBox clipHeight={200} defaultClipped btnText="View Full Query">
+        <CodeSnippet language="sql">
+          {formatter.toString(description, {maxLineLength: LINE_LENGTH})}
+        </CodeSnippet>
+      </ClippedBox>
     );
   }
 
   if (moduleName === ModuleName.RESOURCE) {
-    return <CodeSnippet language="http">{description}</CodeSnippet>;
+    return (
+      <ClippedBox clipHeight={200} defaultClipped btnText="View Full Query">
+        <CodeSnippet language="http">{description}</CodeSnippet>
+      </ClippedBox>
+    );
   }
 
   return <Fragment>{description}</Fragment>;
